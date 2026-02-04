@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>For You 💗</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  }
+
+  .envelope {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    height: 300px;
+    background: #ff6fa1;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: shake 2s infinite;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 1s;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translate(-50%, -50%) rotate(0); }
+    25% { transform: translate(-50%, -50%) rotate(1deg); }
+    75% { transform: translate(-50%, -50%) rotate(-1deg); }
+  }
+
+  .envelope.open {
+    animation: none;
+    height: 440px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.95);
+    padding: 20px 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
+    transform: translateY(130%);
+    transition: 1s;
+  }
+
+  .envelope.open .card {
+    transform: translateY(0);
+  }
+
+  .photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ff6fa1;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    color: #ff4d88;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #555;
+    font-size: 14px;
+  }
+
+  .name {
+    color: #ff2f73;
+    font-weight: bold;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+  }
+
+  @keyframes float {
+    from {
+      transform: translateY(100vh);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<script>
+  // GANTI DI SINI
+  let namaGebetan = "Jesica Cinta Bela";
+  let fotoGebetan = "foto.jpeg"; // taruh file foto di folder yg sama
+</script>
+
+<div class="envelope" id="envelope" onclick="openLetter()">
+  <div class="card">
+    <img src="" id="foto" class="photo">
+    <h1>Happy Valentine <span class="name" id="nama"></span> 💗</h1>
+    <p>
+      Hai <span class="name" id="nama2"></span>,<br>
+      Terimakasih untuk setiap ketulusan dan kebaikan hatimu.<br>
+      Aku seneng banget bisa kenal dan deket sama kamu 
+    </p>
+    <p id="loveText"></p>
+  </div>
+</div>
+
+<script>
+  document.getElementById("nama").innerText = namaGebetan;
+  document.getElementById("nama2").innerText = namaGebetan;
+  document.getElementById("foto").src = fotoGebetan;
+
+  function openLetter() {
+    const env = document.getElementById("envelope");
+    if (!env.classList.contains("open")) {
+      env.classList.add("open");
+      showLove();
+    }
+  }
+
+  function showLove() {
+    const text = "Semoga hari kamu selalu se-manis senyummu, " + namaGebetan + " 💕";
+    let i = 0;
+    const target = document.getElementById("loveText");
+    target.innerHTML = "";
+
+    const interval = setInterval(() => {
+      target.innerHTML += text.charAt(i);
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, 50);
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+
+  setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
